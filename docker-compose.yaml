@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  triton:
+    image: nvcr.io/nvidia/tritonserver:latest
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    volumes:
+      - ./models:/models
+    environment:
+      - MODEL_REPOSITORY=/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
